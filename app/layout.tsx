@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="bg-obsidian text-sandstone font-sans antialiased selection:bg-gold selection:text-obsidian">
         <Navbar />
         {children}
-        <Footer />
+        
       </body>
     </html>
   );
