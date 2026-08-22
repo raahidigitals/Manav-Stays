@@ -21,7 +21,7 @@ export default function Navbar() {
           className="flex items-center"
         >
           <Image
-            src="/images/manavstayslogo.png"
+            src="/images/manavstayslogo.PNG"
             alt="Manav Stays & Hospitality"
             width={180}
             height={60}
