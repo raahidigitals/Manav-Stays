@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
-import footer from "@/components/Footer";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 
@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className="bg-obsidian text-sandstone font-sans antialiased selection:bg-gold selection:text-obsidian">
         <Navbar />
         {children}
-        <Footer />
+        <Footer/>
       </body>
     </html>
   );
