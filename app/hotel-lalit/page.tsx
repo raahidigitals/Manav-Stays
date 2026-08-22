@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import { client } from "@/lib/sanity";
 import InstagramReels from "@/components/InstagramReels";
 

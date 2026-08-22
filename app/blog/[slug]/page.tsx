@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/lib/sanity";
-import Footer from "@/components/Footer";
+
 
 const BLOG_POST_QUERY = `
   *[_type == "blog" && slug.current == $slug][0] {

@@ -403,6 +403,6 @@ export default async function Footer() {
 
       </div>
 
-    </footer>
+    
   );
 }

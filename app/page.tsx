@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import PropertyLalit from "@/components/PropertyLalit";
 import PropertyNaman from "@/components/PropertyNaman";
 import BookingSection from "@/components/BookingSection";
-import Footer from "@/components/Footer";
+
 import { client } from "@/lib/sanity";
 import InstagramReels from "@/components/InstagramReels";
 
