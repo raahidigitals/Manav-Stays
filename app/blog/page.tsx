@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { client, urlFor } from "@/lib/sanity";
-import Footer from "@/components/Footer";
 export const revalidate = 0; // Revalidate the page every 0 seconds
 
-const BLOG_QUERY = `
+const BLOG_QUERY = 
   *[_type == "blog" && defined(slug.current)]
   | order(publishedAt desc) {
     _id,
@@ -110,7 +109,7 @@ export default async function BlogPage() {
           </div>
         )}
       </section>
-      <Footer />
+      
     </div>
   );
 }
