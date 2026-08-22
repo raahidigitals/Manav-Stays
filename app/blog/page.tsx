@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { client, urlFor } from "@/lib/sanity";
 import Footer from "@/components/Footer";
-
+export const revalidate = 0; // Revalidate the page every 0 seconds
 
 const BLOG_QUERY = `
   *[_type == "blog" && defined(slug.current)]
