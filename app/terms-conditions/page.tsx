@@ -41,7 +41,7 @@ export default async function TermsConditionsPage() {
         </div>
       </section>
 
-      <Footer />
+  
     </main>
   );
 }

@@ -644,7 +644,7 @@ export default async function HotelLalitPage() {
         </a>
       </section>
 
-      <Footer />
+    
     </main>
   );
 }

@@ -272,7 +272,7 @@ const relatedBlogs = await client.fetch(RELATED_BLOGS_QUERY);
   </div>
 </section>
       </article>
-        <Footer />
+    
     </main>
   );
 }

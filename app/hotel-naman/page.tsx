@@ -79,7 +79,7 @@ export default async function HotelNamanPage() {
           </div>
         </section>
 
-        <Footer />
+    
       </main>
     );
   }
@@ -540,7 +540,7 @@ export default async function HotelNamanPage() {
 
       </section>
 
-      <Footer />
+  
     </main>
   );
 }

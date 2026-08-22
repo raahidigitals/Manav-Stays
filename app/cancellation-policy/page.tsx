@@ -42,7 +42,7 @@ export default async function CancellationPolicyPage() {
         </div>
       </section>
 
-      <Footer />
+  
     </main>
   );
 }
