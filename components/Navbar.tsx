@@ -59,20 +59,20 @@ export default function Navbar() {
 
           {/* PHONE - DESKTOP */}
           <a
-            href="tel:+919950767925"
+            href="tel:+918890002728"
             className="hidden sm:inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold hover:text-white transition-colors"
           >
             <Phone size={14} />
-            <span>+91 99507 67925</span>
+            <span>+91 88900 2728</span>
           </a>
 
           {/* BOOK STAY */}
           <a
-            href="https://wa.me/message/TKAO3SO455LAL1?text=Hello%20Manav%20Stays%2C%20I%20would%20like%20to%20book%20a%20stay."
+            href="https://wa.me/918890002728?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20room%20availability%20and%20rates%20at%20Manav%20Stays"
             className="px-4 py-2.5 sm:px-5 bg-gold text-obsidian text-[10px] sm:text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-gold-light transition-all shadow-gold flex items-center gap-2"
           >
             <Calendar size={14} />
-            <span>Book Stay</span>
+            <span>Enquire Now</span>
           </a>
 
           {/* MOBILE MENU BUTTON */}
@@ -121,21 +121,21 @@ export default function Navbar() {
             </Link>
 
             <a
-              href="tel:+919950767925"
+              href="tel:+918890002728"
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 border-b border-gold/10 py-4 text-xs uppercase tracking-[0.2em] text-gold"
             >
               <Phone size={15} />
-              +91 99507 67925
+              +91 88900 2728
             </a>
 
             <a
-              href="https://wa.me/message/TKAO3SO455LAL1?text=Hello%20Manav%20Stays%2C%20I%20would%20like%20to%20book%20a%20stay."
+              href="https://wa.me/918890002728?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20room%20availability%20and%20rates%20at%20Manav%20Stays"
               onClick={() => setMenuOpen(false)}
               className="mt-5 flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-semibold uppercase tracking-widest text-obsidian"
             >
               <Calendar size={15} />
-              Book Stay
+              Enquire Now 
             </a>
 
           </nav>
