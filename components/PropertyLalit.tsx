@@ -76,7 +76,7 @@ const property = await client.fetch(
   </a>
 
   <a
-    href="https://wa.me/message/TKA03S0455LAL1?text=Hello%20Dockyard%20Bar"
+    href="https://wa.me/8890002755?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20table%20availability%20and%20rates%20at%20Dockyard%20Bar"
     className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-gold text-obsidian text-xs uppercase tracking-widest text-center min-w-[240px]"
   >
     Reserve Table at Dockyard Bar
