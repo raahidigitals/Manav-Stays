@@ -30,7 +30,7 @@ const property = await client.fetch(
 
             <h2 className="font-serif text-4xl sm:text-6xl text-sandstone font-light leading-tight">
               Hotel Lalit Imperial <br />
-              <span className="italic text-gold font-normal">& Dockyard Bar Lounge</span>
+              <span className="font-normal">& Dockyard Bar Lounge</span>
             </h2>
 
             <p className="text-sandstone/70 text-sm md:text-base font-light leading-relaxed">
