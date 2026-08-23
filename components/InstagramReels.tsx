@@ -13,17 +13,17 @@ type InstagramReelsProps = {
   subtitle?: string;
 };
 
-function getEmbedUrl(url?: string) {
+function getCleanInstagramUrl(url?: string) {
   if (!url) return null;
 
   try {
-    const cleanUrl = url.split("?")[0];
+    const parsed = new URL(url);
 
-    if (!cleanUrl.includes("instagram.com")) {
+    if (!parsed.hostname.includes("instagram.com")) {
       return null;
     }
 
-    return `${cleanUrl.replace(/\/$/, "")}/embed`;
+    return `${parsed.origin}${parsed.pathname}`;
   } catch {
     return null;
   }
@@ -34,38 +34,57 @@ export default function InstagramReels({
   title = "Latest From Instagram",
   subtitle = "Follow our latest stays, experiences and moments.",
 }: InstagramReelsProps) {
-  useEffect(() => {
-    const scriptId = "instagram-embed-script";
-
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-
-      script.id = scriptId;
-      script.src = "https://www.instagram.com/embed.js";
-      script.async = true;
-
-      document.body.appendChild(script);
-    }
-
-    const instagram = window as typeof window & {
-      instgrm?: {
-        Embeds?: {
-          process: () => void;
-        };
-      };
-    };
-
-    setTimeout(() => {
-      instagram.instgrm?.Embeds?.process();
-    }, 500);
-  }, [reels]);
-
   const validReels = reels
     .map((reel) => ({
       ...reel,
-      embedUrl: getEmbedUrl(reel.url),
+      cleanUrl: getCleanInstagramUrl(reel.url),
     }))
-    .filter((reel) => reel.embedUrl);
+    .filter(
+      (reel): reel is Reel & { cleanUrl: string } =>
+        Boolean(reel.cleanUrl)
+    )
+    .slice(0, 3);
+
+  useEffect(() => {
+    if (validReels.length === 0) return;
+
+    const processEmbeds = () => {
+      const instagram = window as typeof window & {
+        instgrm?: {
+          Embeds?: {
+            process: () => void;
+          };
+        };
+      };
+
+      instagram.instgrm?.Embeds?.process();
+    };
+
+    const existingScript = document.getElementById(
+      "instagram-embed-script"
+    );
+
+    if (existingScript) {
+      setTimeout(processEmbeds, 300);
+      return;
+    }
+
+    const script = document.createElement("script");
+
+    script.id = "instagram-embed-script";
+    script.src = "https://www.instagram.com/embed.js";
+    script.async = true;
+
+    script.onload = () => {
+      setTimeout(processEmbeds, 300);
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      // Do not remove Instagram's global script.
+    };
+  }, [validReels.length]);
 
   if (validReels.length === 0) {
     return null;
@@ -75,6 +94,7 @@ export default function InstagramReels({
     <section className="px-6 py-24 bg-[#0b0b0b] border-t border-white/10">
       <div className="max-w-7xl mx-auto">
 
+        {/* HEADER */}
         <div className="text-center max-w-2xl mx-auto">
 
           <p className="text-xs uppercase tracking-[0.35em] text-gold">
@@ -91,19 +111,20 @@ export default function InstagramReels({
 
         </div>
 
+        {/* REELS */}
         <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          {validReels.slice(0, 3).map((reel, index) => (
+          {validReels.map((reel, index) => (
             <div
-              key={`${reel.url}-${index}`}
+              key={`${reel.cleanUrl}-${index}`}
               className="overflow-hidden rounded-3xl border border-gold/20 bg-white/[0.03]"
             >
 
-              <div className="bg-black min-h-[500px] flex items-center justify-center">
+              <div className="bg-black flex items-center justify-center">
 
                 <blockquote
                   className="instagram-media"
-                  data-instgrm-permalink={reel.url}
+                  data-instgrm-permalink={reel.cleanUrl}
                   data-instgrm-version="14"
                   style={{
                     background: "#000",
@@ -116,7 +137,7 @@ export default function InstagramReels({
                   }}
                 >
                   <a
-                    href={reel.url}
+                    href={reel.cleanUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
