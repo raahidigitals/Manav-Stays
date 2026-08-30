@@ -381,7 +381,7 @@ export default async function HotelLalitPage() {
       {/* =========================================================
           PROPERTY INFORMATION
       ========================================================= */}
-      {/* =========================================================
+     {/* =========================================================
     PROPERTY INFORMATION
 ========================================================= */}
 <section className="px-6 py-20 bg-[#0b0b0b] border-y border-white/10">
@@ -401,13 +401,13 @@ export default async function HotelLalitPage() {
     </div>
 
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       {/* PHONE */}
       {property.phone && (
         <a
           href={`tel:${property.phone}`}
-          className="group rounded-3xl border border-white/10 bg-white/[0.03] p-7 hover:border-gold/40 transition"
+          className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 hover:border-gold/40 transition group"
         >
 
           <p className="text-xs uppercase tracking-[0.25em] text-gold">
@@ -418,7 +418,7 @@ export default async function HotelLalitPage() {
             {property.phone}
           </p>
 
-          <p className="mt-3 text-sm text-sandstone/40 group-hover:text-gold transition">
+          <p className="mt-3 text-sm text-sandstone/50 group-hover:text-gold transition">
             Contact Hotel →
           </p>
 
@@ -427,56 +427,74 @@ export default async function HotelLalitPage() {
 
 
       {/* LOCATION */}
-      {property.location && (
-        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-7">
+      <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-7">
 
-          <p className="text-xs uppercase tracking-[0.25em] text-gold">
-            Location
-          </p>
+        <p className="text-xs uppercase tracking-[0.25em] text-gold">
+          Location
+        </p>
 
-          <div className="mt-4 flex items-start gap-3">
+        <div className="mt-5 flex gap-4">
 
-            <span className="text-gold text-xl">
-              📍
-            </span>
+          <div className="text-gold text-xl">
+            📍
+          </div>
 
-            <p className="text-sandstone/80 text-sm leading-6">
-              {property.location}
+          <div>
+
+            <p className="text-white text-base leading-7">
+              {property.location ||
+                "Hotel Lalit Imperial, Sohan Sadan, NH-8, Udaipur, Rajasthan"}
             </p>
 
+            {property.mapUrl && (
+              <a
+                href={property.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex mt-5 items-center justify-center rounded-full bg-gold px-6 py-3 text-xs uppercase tracking-[0.18em] text-obsidian hover:opacity-90 transition"
+              >
+                Get Directions →
+              </a>
+            )}
+
           </div>
+
+        </div>
+
+      </div>
+
+
+      {/* REAL MAP */}
+      <div className="rounded-3xl overflow-hidden border border-gold/20 bg-white/[0.03] min-h-[260px]">
+
+        <div className="relative w-full h-full min-h-[260px]">
+
+          <iframe
+            src={`https://www.google.com/maps?q=${encodeURIComponent(
+              property.location ||
+                "Hotel Lalit Imperial, Sohan Sadan, NH-8, Udaipur, Rajasthan"
+            )}&output=embed`}
+            className="absolute inset-0 w-full h-full border-0"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Hotel Lalit Imperial Location"
+          />
 
           {property.mapUrl && (
             <a
               href={property.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center mt-6 px-5 py-3 rounded-full bg-gold text-obsidian text-xs uppercase tracking-[0.15em] hover:opacity-90 transition"
+              className="absolute top-4 right-4 rounded-full bg-obsidian/90 backdrop-blur-md border border-gold/40 px-4 py-2 text-xs uppercase tracking-wider text-gold hover:bg-gold hover:text-obsidian transition"
             >
-              Get Directions →
+              Open in Maps ↗
             </a>
           )}
 
         </div>
-      )}
 
-
-      {/* GOOGLE MAP */}
-      {property.location && (
-        <div className="rounded-3xl overflow-hidden border border-gold/20 bg-white/[0.03] min-h-[250px]">
-
-          <iframe
-            title="Hotel Lalit Imperial Location"
-            src={`https://www.google.com/maps?q=${encodeURIComponent(
-              property.location
-            )}&output=embed`}
-            className="w-full h-full min-h-[250px] border-0"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-
-        </div>
-      )}
+      </div>
 
     </div>
 
