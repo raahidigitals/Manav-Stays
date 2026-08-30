@@ -21,6 +21,7 @@ const HOTEL_LALIT_QUERY = `
     whatsappmessage,
 
     "heroVideoUrl": heroVideo.asset->url,
+    "heroImage": heroImage.asset->url,
 
     roomCategories[] {
       name,
@@ -110,83 +111,98 @@ export default async function HotelLalitPage() {
       {/* =========================================================
           HERO
       ========================================================= */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-90px)] flex items-center justify-center pt-32">
+      {/* =========================================================
+    HERO
+========================================================= */}
+<section className="relative overflow-hidden min-h-[calc(100vh-90px)] flex items-center justify-center pt-32">
 
-        {property.heroVideoUrl && (
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            src={property.heroVideoUrl}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        )}
+  {/* HERO VIDEO */}
+  {property.heroVideoUrl ? (
+    <video
+      className="absolute inset-0 w-full h-full object-cover"
+      src={property.heroVideoUrl}
+      autoPlay
+      muted
+      loop
+      playsInline
+    />
+  ) : property.heroImageUrl ? (
+    /* HERO IMAGE FALLBACK */
+    <img
+      src={property.heroImageUrl}
+      alt={property.name || "Hotel Lalit Imperial"}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : (
+    /* FALLBACK BACKGROUND */
+    <div className="absolute inset-0 bg-obsidian" />
+  )}
 
-        <div className="absolute inset-0 bg-obsidian/60" />
+  {/* DARK LUXURY OVERLAY */}
+  <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-obsidian/60 to-obsidian/40" />
 
-        <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
+  {/* HERO CONTENT */}
+  <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
 
-          <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-gold">
-            Ultra Luxury · 12 Exclusive Suites · Rooftop Igloo Dining · Private Jacuzzi Suites
-          </p>
+    <p className="text-xs md:text-sm uppercase tracking-[0.35em] text-gold">
+      Ultra Luxury · 12 Exclusive Suites · Rooftop Igloo Dining · Private Jacuzzi Suites
+    </p>
 
-          <h1 className="mt-6 font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-[1.05]">
-            {property.name || "Hotel Lalit Imperial"}
-          </h1>
+    <h1 className="mt-6 font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-[1.05]">
+      {property.name || "Hotel Lalit Imperial"}
+    </h1>
 
-          <p className="mt-5 font-serif italic text-2xl md:text-3xl lg:text-4xl text-gold">
-            & Dockyard Bar Lounge
-          </p>
+    <p className="mt-5 font-serif italic text-2xl md:text-3xl lg:text-4xl text-gold">
+      & Dockyard Bar Lounge
+    </p>
 
-          <div className="w-20 h-px bg-gold/50 mx-auto mt-8" />
+    <div className="w-20 h-px bg-gold/50 mx-auto mt-8" />
 
-          <p className="max-w-2xl mx-auto mt-8 text-sm md:text-base text-sandstone/70 leading-relaxed">
-            {property.shortDescription ||
-              property.description ||
-              "Discover an intimate luxury stay in Udaipur, featuring curated suites, rooftop igloo experiences, and the sophisticated Dockyard Bar Lounge."}
-          </p>
+    <p className="max-w-2xl mx-auto mt-8 text-sm md:text-base text-sandstone/70 leading-relaxed">
+      {property.shortDescription ||
+        property.description ||
+        "Discover an intimate luxury stay in Udaipur, featuring curated suites, rooftop igloo experiences, and the sophisticated Dockyard Bar Lounge."}
+    </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
 
-            <a
-              href="#rooms"
-              className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full bg-gold text-obsidian text-xs uppercase tracking-[0.18em] hover:opacity-90 transition"
-            >
-              Explore Suites
-            </a>
+      <a
+        href="#rooms"
+        className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full bg-gold text-obsidian text-xs uppercase tracking-[0.18em] hover:opacity-90 transition"
+      >
+        Explore Suites
+      </a>
 
-            {property.bookingUrl && (
-              <a
-                href={property.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full border border-gold/60 text-gold text-xs uppercase tracking-[0.18em] hover:bg-gold hover:text-obsidian transition"
-              >
-                Reserve Suite
-              </a>
-            )}
+      {property.bookingUrl && (
+        <a
+          href={property.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full border border-gold/60 text-gold text-xs uppercase tracking-[0.18em] hover:bg-gold hover:text-obsidian transition"
+        >
+          Reserve Suite
+        </a>
+      )}
 
-            {property.whatsappUrl && (
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full border border-gold/60 text-gold text-xs uppercase tracking-[0.18em] hover:bg-gold hover:text-obsidian transition"
-              >
-                Enquire On WhatsApp
-              </a>
-            )}
+      {property.whatsappUrl && (
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center min-w-[170px] px-7 py-3.5 rounded-full border border-gold/60 text-gold text-xs uppercase tracking-[0.18em] hover:bg-gold hover:text-obsidian transition"
+        >
+          Enquire On WhatsApp
+        </a>
+      )}
 
-          </div>
+    </div>
 
-          <p className="mt-12 text-[10px] uppercase tracking-[0.3em] text-sandstone/40">
-            Udaipur · Rajasthan
-          </p>
+    <p className="mt-12 text-[10px] uppercase tracking-[0.3em] text-sandstone/40">
+      Udaipur · Rajasthan
+    </p>
 
-        </div>
-      </section>
-
+  </div>
+</section>
 
       {/* =========================================================
           ROOMS
