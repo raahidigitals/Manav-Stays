@@ -71,6 +71,12 @@ export default async function Footer() {
               >
                 Home
               </Link>
+              <Link
+  href="/about"
+  className="hover:text-gold transition"
+>
+  About Us
+</Link>
 
               <Link
                 href="/hotel-lalit-imperial"
