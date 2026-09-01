@@ -236,63 +236,73 @@ export default async function AboutPage() {
 
         </section>
       )}
+{/* =========================================================
+    VALUES
+========================================================= */}
+{about.values?.length > 0 && (
+  <section className="px-6 md:px-10 py-20 md:py-32">
 
+    <div className="max-w-7xl mx-auto">
 
-      {/* =========================================================
-          VALUES
-      ========================================================= */}
-      {about.values?.length > 0 && (
-        <section className="px-6 md:px-10 py-20 md:py-32">
+      <div className="mb-12 md:mb-16">
 
-          <div className="max-w-7xl mx-auto">
+        <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
+          Our Values
+        </p>
 
-            <div className="mb-12 md:mb-16">
+        <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl text-sandstone">
+          What We Believe In
+        </h2>
 
-              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-                Our Values
-              </p>
+      </div>
 
-              <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl text-sandstone">
-                What We Believe In
-              </h2>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
+
+        {about.values.map(
+          (
+            value: {
+              title?: string;
+              description?: string;
+            },
+            index: number
+          ) => (
+
+            <div
+              key={index}
+              className="bg-obsidian p-8 md:p-10 min-h-[220px] flex items-end"
+            >
+
+              <div>
+
+                <span className="text-xs uppercase tracking-[0.2em] text-gold/50">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <h3 className="mt-4 font-[var(--font-cormorant)] text-3xl text-sandstone">
+                  {value.title || "Our Value"}
+                </h3>
+
+                {value.description && (
+                  <p className="mt-4 text-sm md:text-base leading-relaxed text-sandstone/60">
+                    {value.description}
+                  </p>
+                )}
+
+              </div>
 
             </div>
 
+          )
+        )}
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
+      </div>
 
-              {about.values.map(
-                (value: string, index: number) => (
+    </div>
 
-                  <div
-                    key={index}
-                    className="bg-obsidian p-8 md:p-10 min-h-[190px] flex items-end"
-                  >
+  </section>
+)}
 
-                    <div>
-
-                      <span className="text-xs uppercase tracking-[0.2em] text-gold/50">
-                        0{index + 1}
-                      </span>
-
-                      <h3 className="mt-4 font-[var(--font-cormorant)] text-3xl text-sandstone">
-                        {value}
-                      </h3>
-
-                    </div>
-
-                  </div>
-
-                )
-              )}
-
-            </div>
-
-          </div>
-
-        </section>
-      )}
-
+      
 
       {/* =========================================================
           OUR PROPERTIES
