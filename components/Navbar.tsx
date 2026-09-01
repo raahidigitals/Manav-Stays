@@ -31,19 +31,22 @@ export default function Navbar() {
         </Link>
 
         {/* DESKTOP NAVIGATION */}
-        <nav className="hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest text-sandstone/80 font-medium">
+        <nav className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-widest text-sandstone/80 font-medium">
+
           <Link
             href="/hotel-lalit"
             className="hover:text-gold transition-colors"
           >
-            Hotel Lalit (Luxury)
+            Hotel Lalit
+            <span className="ml-1 text-gold/60">(Luxury)</span>
           </Link>
 
           <Link
             href="/hotel-naman"
             className="hover:text-gold transition-colors"
           >
-            Hotel Naman (Affordable)
+            Hotel Naman
+            <span className="ml-1 text-gold/60">(Affordable)</span>
           </Link>
 
           <Link
@@ -52,6 +55,23 @@ export default function Navbar() {
           >
             Travel Journal
           </Link>
+
+          {/* ABOUT US */}
+          <Link
+            href="/about"
+            className="hover:text-gold transition-colors"
+          >
+            About Us
+          </Link>
+
+          {/* CONTACT US */}
+          <Link
+            href="/contact"
+            className="hover:text-gold transition-colors"
+          >
+            Contact Us
+          </Link>
+
         </nav>
 
         {/* RIGHT SIDE */}
@@ -60,13 +80,13 @@ export default function Navbar() {
           {/* PHONE - DESKTOP */}
           <a
             href="tel:+918890002728"
-            className="hidden sm:inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold hover:text-white transition-colors"
+            className="hidden xl:inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold hover:text-white transition-colors"
           >
             <Phone size={14} />
             <span>+91 88900 2728</span>
           </a>
 
-          {/* BOOK STAY */}
+          {/* ENQUIRE NOW */}
           <a
             href="https://wa.me/918890002728?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20room%20availability%20and%20rates%20at%20Manav%20Stays"
             className="px-4 py-2.5 sm:px-5 bg-gold text-obsidian text-[10px] sm:text-xs uppercase tracking-widest font-semibold rounded-full hover:bg-gold-light transition-all shadow-gold flex items-center gap-2"
@@ -120,6 +140,25 @@ export default function Navbar() {
               Travel Journal
             </Link>
 
+            {/* ABOUT US */}
+            <Link
+              href="/about"
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-gold/10 py-4 text-xs uppercase tracking-[0.2em] text-sandstone/80 hover:text-gold transition-colors"
+            >
+              About Us
+            </Link>
+
+            {/* CONTACT US */}
+            <Link
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-gold/10 py-4 text-xs uppercase tracking-[0.2em] text-sandstone/80 hover:text-gold transition-colors"
+            >
+              Contact Us
+            </Link>
+
+            {/* PHONE */}
             <a
               href="tel:+918890002728"
               onClick={() => setMenuOpen(false)}
@@ -129,13 +168,14 @@ export default function Navbar() {
               +91 88900 2728
             </a>
 
+            {/* ENQUIRE */}
             <a
               href="https://wa.me/918890002728?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20room%20availability%20and%20rates%20at%20Manav%20Stays"
               onClick={() => setMenuOpen(false)}
               className="mt-5 flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-semibold uppercase tracking-widest text-obsidian"
             >
               <Calendar size={15} />
-              Enquire Now 
+              Enquire Now
             </a>
 
           </nav>
