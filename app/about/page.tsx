@@ -10,18 +10,43 @@ const ABOUT_QUERY = `
     story,
     "storyImageUrl": storyImage.asset->url,
 
-    vision,
-    mission,
-    values,
+    people[] {
+      name,
+      role,
+      category,
+      bio,
+      quote,
+      "imageUrl": image.asset->url
+    },
+
+    propertiesTitle,
+    propertiesDescription,
 
     properties[] {
-      name,
-      shortDescription,
+      "propertyName": property->name,
+      "propertySlug": property->slug.current,
+      title,
+      tagline,
       description,
-      "imageUrl": image.asset->url,
-      ctaText,
+      "imageUrl": property->heroImage.asset->url,
+      ctaLabel,
       ctaLink
-    }
+    },
+
+    vision,
+    mission,
+
+    values[] {
+      title,
+      description
+    },
+
+    ctaTitle,
+    ctaDescription,
+    primaryCtaLabel,
+    primaryCtaLink,
+    secondaryCtaLabel,
+    secondaryCtaLink
   }
 `;
 
@@ -50,6 +75,19 @@ export default async function AboutPage() {
     );
   }
 
+  const people = about.people || [];
+  const founder = people.find(
+    (person: { category?: string }) => person.category === "leadership"
+  );
+
+  const marketingPeople = people.filter(
+    (person: { category?: string }) => person.category === "marketing"
+  );
+
+  const teamPeople = people.filter(
+    (person: { category?: string }) => person.category === "team"
+  );
+
   return (
     <main className="min-h-screen bg-obsidian text-sandstone font-sans overflow-hidden">
 
@@ -61,10 +99,7 @@ export default async function AboutPage() {
         {about.heroImageUrl && (
           <img
             src={about.heroImageUrl}
-            alt={
-              about.heroTitle ||
-              "Manav Stays & Hospitality"
-            }
+            alt={about.heroTitle || "Manav Stays & Hospitality"}
             className="absolute inset-0 h-full w-full object-cover"
           />
         )}
@@ -150,8 +185,6 @@ export default async function AboutPage() {
 
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-            {/* IMAGE */}
-
             {about.storyImageUrl && (
               <div className="overflow-hidden rounded-3xl border border-gold/10">
 
@@ -163,9 +196,6 @@ export default async function AboutPage() {
 
               </div>
             )}
-
-
-            {/* CONTENT */}
 
             <div>
 
@@ -192,42 +222,263 @@ export default async function AboutPage() {
 
 
       {/* =========================================================
-          VISION & MISSION
+          PEOPLE BEHIND MANAV STAYS
       ========================================================= */}
-      {(about.vision || about.mission) && (
-        <section className="px-6 md:px-10 py-20 md:py-28 border-y border-white/10 bg-[#0b0b0b]">
+      {people.length > 0 && (
+        <section className="px-6 md:px-10 py-20 md:py-32 bg-[#0b0b0b] border-y border-white/10">
 
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20">
+          <div className="max-w-7xl mx-auto">
 
-            {/* VISION */}
+            {/* SECTION HEADER */}
 
-            {about.vision && (
-              <div>
+            <div className="max-w-3xl mb-14 md:mb-20">
 
-                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-                  Our Vision
-                </p>
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
+                The People Behind It
+              </p>
 
-                <p className="font-[var(--font-cormorant)] text-3xl md:text-4xl leading-relaxed text-sandstone">
-                  {about.vision}
-                </p>
+              <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl leading-tight text-sandstone">
+                People Behind Manav Stays
+              </h2>
+
+              <p className="mt-6 text-lg leading-relaxed text-sandstone/60">
+                Hospitality is ultimately about people — the people who create
+                the experience, care about the details and shape the journey
+                behind every stay.
+              </p>
+
+            </div>
+
+
+            {/* =====================================================
+                FOUNDER
+            ===================================================== */}
+
+            {founder && (
+              <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-20 items-center mb-24 md:mb-32">
+
+                {/* FOUNDER IMAGE */}
+
+                {founder.imageUrl ? (
+                  <div className="overflow-hidden rounded-3xl border border-gold/20">
+
+                    <img
+                      src={founder.imageUrl}
+                      alt={founder.name || "Founder"}
+                      className="w-full aspect-[4/5] object-cover"
+                    />
+
+                  </div>
+                ) : (
+                  <div className="w-full aspect-[4/5] rounded-3xl bg-white/5 border border-gold/10 flex items-center justify-center">
+                    <span className="text-sm text-sandstone/30">
+                      Founder image coming soon
+                    </span>
+                  </div>
+                )}
+
+
+                {/* FOUNDER CONTENT */}
+
+                <div>
+
+                  <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
+                    Founder & Leadership
+                  </p>
+
+                  <h3 className="font-[var(--font-cormorant)] text-5xl md:text-7xl text-sandstone leading-none">
+                    {founder.name}
+                  </h3>
+
+                  {founder.role && (
+                    <p className="mt-5 text-sm uppercase tracking-[0.18em] text-gold/80">
+                      {founder.role}
+                    </p>
+                  )}
+
+                  {founder.bio && (
+                    <p className="mt-8 text-lg md:text-xl leading-relaxed text-sandstone/70 whitespace-pre-line">
+                      {founder.bio}
+                    </p>
+                  )}
+
+                  {founder.quote && (
+                    <blockquote className="mt-10 pl-6 border-l border-gold/50">
+
+                      <p className="font-[var(--font-cormorant)] text-2xl md:text-3xl italic leading-relaxed text-sandstone">
+                        “{founder.quote}”
+                      </p>
+
+                    </blockquote>
+                  )}
+
+                </div>
 
               </div>
             )}
 
 
-            {/* MISSION */}
+            {/* =====================================================
+                DIGITAL & MARKETING PARTNER
+            ===================================================== */}
 
-            {about.mission && (
-              <div>
+            {marketingPeople.length > 0 && (
+              <div className="border-t border-white/10 pt-16 md:pt-20">
 
-                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-                  Our Mission
+                <div className="max-w-3xl mb-12">
+
+                  <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
+                    Digital & Marketing Partner
+                  </p>
+
+                  <h3 className="font-[var(--font-cormorant)] text-4xl md:text-5xl text-sandstone">
+                    The Digital Journey Behind Manav Stays
+                  </h3>
+
+                  <p className="mt-5 text-base md:text-lg leading-relaxed text-sandstone/60">
+                    Building a hospitality brand today goes beyond the
+                    physical experience. The right story, visibility and
+                    digital connection help guests discover and choose it.
+                  </p>
+
+                </div>
+
+
+                <div className="grid md:grid-cols-2 gap-8">
+
+                  {marketingPeople.map(
+                    (
+                      person: {
+                        name?: string;
+                        role?: string;
+                        bio?: string;
+                        quote?: string;
+                        imageUrl?: string;
+                      },
+                      index: number
+                    ) => (
+
+                      <article
+                        key={`${person.name}-${index}`}
+                        className="rounded-3xl border border-gold/10 bg-white/[0.02] overflow-hidden"
+                      >
+
+                        {person.imageUrl && (
+                          <div className="aspect-[16/10] overflow-hidden">
+
+                            <img
+                              src={person.imageUrl}
+                              alt={person.name || "Raahii Digital"}
+                              className="w-full h-full object-cover"
+                            />
+
+                          </div>
+                        )}
+
+                        <div className="p-8 md:p-10">
+
+                          <h4 className="font-[var(--font-cormorant)] text-3xl md:text-4xl text-sandstone">
+                            {person.name}
+                          </h4>
+
+                          {person.role && (
+                            <p className="mt-3 text-xs uppercase tracking-[0.16em] text-gold/80">
+                              {person.role}
+                            </p>
+                          )}
+
+                          {person.bio && (
+                            <p className="mt-6 text-base leading-relaxed text-sandstone/60 whitespace-pre-line">
+                              {person.bio}
+                            </p>
+                          )}
+
+                          {person.quote && (
+                            <p className="mt-7 font-[var(--font-cormorant)] text-xl italic text-sandstone/80">
+                              “{person.quote}”
+                            </p>
+                          )}
+
+                        </div>
+
+                      </article>
+
+                    )
+                  )}
+
+                </div>
+
+              </div>
+            )}
+
+
+            {/* =====================================================
+                OTHER TEAM MEMBERS
+            ===================================================== */}
+
+            {teamPeople.length > 0 && (
+              <div className="mt-20 border-t border-white/10 pt-16">
+
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-8">
+                  Our Team
                 </p>
 
-                <p className="font-[var(--font-cormorant)] text-3xl md:text-4xl leading-relaxed text-sandstone">
-                  {about.mission}
-                </p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                  {teamPeople.map(
+                    (
+                      person: {
+                        name?: string;
+                        role?: string;
+                        imageUrl?: string;
+                        bio?: string;
+                      },
+                      index: number
+                    ) => (
+
+                      <article
+                        key={`${person.name}-${index}`}
+                        className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden"
+                      >
+
+                        {person.imageUrl && (
+                          <div className="aspect-square overflow-hidden">
+
+                            <img
+                              src={person.imageUrl}
+                              alt={person.name || "Manav Stays team"}
+                              className="w-full h-full object-cover"
+                            />
+
+                          </div>
+                        )}
+
+                        <div className="p-7">
+
+                          <h4 className="font-[var(--font-cormorant)] text-2xl text-sandstone">
+                            {person.name}
+                          </h4>
+
+                          {person.role && (
+                            <p className="mt-2 text-xs uppercase tracking-[0.15em] text-gold/70">
+                              {person.role}
+                            </p>
+                          )}
+
+                          {person.bio && (
+                            <p className="mt-4 text-sm leading-relaxed text-sandstone/60">
+                              {person.bio}
+                            </p>
+                          )}
+
+                        </div>
+
+                      </article>
+
+                    )
+                  )}
+
+                </div>
 
               </div>
             )}
@@ -236,63 +487,133 @@ export default async function AboutPage() {
 
         </section>
       )}
-{/* =========================================================
-    VALUES
+
+
+      {/* =========================================================
+    VISION & MISSION
 ========================================================= */}
-{about.values?.length > 0 && (
-  <section className="px-6 md:px-10 py-20 md:py-32">
+{(about.vision || about.mission) && (
+  <section className="relative px-6 md:px-10 py-24 md:py-36 bg-[#090909] overflow-hidden">
 
-    <div className="max-w-7xl mx-auto">
+    {/* SUBTLE BACKGROUND DETAIL */}
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
 
-      <div className="mb-12 md:mb-16">
+    <div className="relative max-w-7xl mx-auto">
+
+      {/* SECTION INTRO */}
+
+      <div className="max-w-3xl mb-14 md:mb-20">
 
         <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-          Our Values
+          What Guides Us
         </p>
 
-        <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl text-sandstone">
-          What We Believe In
+        <h2 className="font-[var(--font-cormorant)] text-5xl md:text-7xl leading-[1] text-sandstone">
+          A clear vision.
+          <br />
+          A meaningful purpose.
         </h2>
+
+        <p className="mt-7 max-w-2xl text-base md:text-lg leading-relaxed text-sandstone/50">
+          Everything we create at Manav Stays is guided by a simple
+          understanding — hospitality should feel thoughtful, genuine
+          and effortless.
+        </p>
 
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
 
-        {about.values.map(
-          (
-            value: {
-              title?: string;
-              description?: string;
-            },
-            index: number
-          ) => (
+      {/* VISION + MISSION */}
 
-            <div
-              key={index}
-              className="bg-obsidian p-8 md:p-10 min-h-[220px] flex items-end"
-            >
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
 
-              <div>
+        {/* =====================================================
+            VISION
+        ===================================================== */}
 
-                <span className="text-xs uppercase tracking-[0.2em] text-gold/50">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+        {about.vision && (
+          <article className="group relative rounded-3xl border border-white/10 bg-white/[0.025] p-8 md:p-12 lg:p-14 transition-all duration-500 hover:border-gold/25">
 
-                <h3 className="mt-4 font-[var(--font-cormorant)] text-3xl text-sandstone">
-                  {value.title || "Our Value"}
-                </h3>
+            {/* NUMBER */}
 
-                {value.description && (
-                  <p className="mt-4 text-sm md:text-base leading-relaxed text-sandstone/60">
-                    {value.description}
-                  </p>
-                )}
+            <div className="flex items-center justify-between mb-12">
 
-              </div>
+              <span className="text-xs uppercase tracking-[0.25em] text-gold/70">
+                01
+              </span>
+
+              <span className="w-12 h-px bg-gold/30 group-hover:w-20 transition-all duration-500" />
 
             </div>
 
-          )
+
+            {/* TITLE */}
+
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-6">
+              Our Vision
+            </p>
+
+            <h3 className="font-[var(--font-cormorant)] text-4xl md:text-5xl leading-tight text-sandstone">
+              To make hospitality feel genuinely human.
+            </h3>
+
+
+            {/* CONTENT */}
+
+            <div className="mt-8 max-w-xl">
+
+              <p className="text-base md:text-lg leading-[1.9] text-sandstone/65 whitespace-pre-line">
+                {about.vision}
+              </p>
+
+            </div>
+
+          </article>
+        )}
+
+
+        {/* =====================================================
+            MISSION
+        ===================================================== */}
+
+        {about.mission && (
+          <article className="group relative rounded-3xl border border-white/10 bg-white/[0.025] p-8 md:p-12 lg:p-14 transition-all duration-500 hover:border-gold/25">
+
+            {/* NUMBER */}
+
+            <div className="flex items-center justify-between mb-12">
+
+              <span className="text-xs uppercase tracking-[0.25em] text-gold/70">
+                02
+              </span>
+
+              <span className="w-12 h-px bg-gold/30 group-hover:w-20 transition-all duration-500" />
+
+            </div>
+
+
+            {/* TITLE */}
+
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-6">
+              Our Mission
+            </p>
+
+            <h3 className="font-[var(--font-cormorant)] text-4xl md:text-5xl leading-tight text-sandstone">
+              Creating stays worth remembering.
+            </h3>
+
+
+            {/* CONTENT */}
+
+            <div className="mt-8 max-w-xl">
+
+              <p className="text-base md:text-lg leading-[1.9] text-sandstone/65 whitespace-pre-line">
+                {about.mission}
+              </p>
+
+            </div>
+
+          </article>
         )}
 
       </div>
@@ -302,8 +623,6 @@ export default async function AboutPage() {
   </section>
 )}
 
-      
-
       {/* =========================================================
           OUR PROPERTIES
       ========================================================= */}
@@ -312,8 +631,6 @@ export default async function AboutPage() {
 
           <div className="max-w-7xl mx-auto">
 
-            {/* SECTION HEADER */}
-
             <div className="max-w-3xl mb-14 md:mb-20">
 
               <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
@@ -321,47 +638,43 @@ export default async function AboutPage() {
               </p>
 
               <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl leading-tight text-sandstone">
-                Stay Your Way in Udaipur
+                {about.propertiesTitle || "Stay Your Way in Udaipur"}
               </h2>
 
-              <p className="mt-6 text-lg leading-relaxed text-sandstone/60">
-                From elevated stays to comfortable escapes and memorable
-                dining experiences, discover the different ways to experience
-                Udaipur with Manav Stays.
-              </p>
+              {about.propertiesDescription && (
+                <p className="mt-6 text-lg leading-relaxed text-sandstone/60">
+                  {about.propertiesDescription}
+                </p>
+              )}
 
             </div>
 
-
-            {/* PROPERTY LIST */}
 
             <div className="space-y-20 md:space-y-28">
 
               {about.properties.map(
                 (
                   property: {
-                    name?: string;
-                    shortDescription?: string;
+                    propertyName?: string;
+                    propertySlug?: string;
+                    title?: string;
+                    tagline?: string;
                     description?: string;
                     imageUrl?: string;
-                    ctaText?: string;
+                    ctaLabel?: string;
                     ctaLink?: string;
                   },
                   index: number
                 ) => (
 
                   <article
-                    key={`${property.name}-${index}`}
+                    key={`${property.propertyName}-${index}`}
                     className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center"
                   >
 
-                    {/* IMAGE */}
-
                     <div
                       className={`overflow-hidden rounded-3xl border border-gold/10 ${
-                        index % 2 !== 0
-                          ? "lg:order-2"
-                          : ""
+                        index % 2 !== 0 ? "lg:order-2" : ""
                       }`}
                     >
 
@@ -369,7 +682,8 @@ export default async function AboutPage() {
                         <img
                           src={property.imageUrl}
                           alt={
-                            property.name ||
+                            property.title ||
+                            property.propertyName ||
                             "Manav Stays property"
                           }
                           className="w-full aspect-[4/3] object-cover transition-transform duration-700 hover:scale-105"
@@ -385,31 +699,27 @@ export default async function AboutPage() {
                     </div>
 
 
-                    {/* CONTENT */}
-
                     <div
                       className={`${
-                        index % 2 !== 0
-                          ? "lg:order-1"
-                          : ""
+                        index % 2 !== 0 ? "lg:order-1" : ""
                       }`}
                     >
 
                       <span className="text-xs uppercase tracking-[0.2em] text-gold/50">
-                        0{index + 1}
+                        {String(index + 1).padStart(2, "0")}
                       </span>
 
                       <h3 className="mt-4 font-[var(--font-cormorant)] text-4xl md:text-5xl text-sandstone">
-                        {property.name}
+                        {property.title ||
+                          property.propertyName ||
+                          "Manav Stays"}
                       </h3>
 
-
-                      {property.shortDescription && (
+                      {property.tagline && (
                         <p className="mt-5 font-[var(--font-cormorant)] text-2xl md:text-3xl text-gold/90">
-                          {property.shortDescription}
+                          {property.tagline}
                         </p>
                       )}
-
 
                       {property.description && (
                         <p className="mt-5 text-base md:text-lg leading-relaxed text-sandstone/60 whitespace-pre-line">
@@ -417,21 +727,15 @@ export default async function AboutPage() {
                         </p>
                       )}
 
-
-                      {property.ctaText &&
-                        property.ctaLink && (
-                          <a
-                            href={property.ctaLink}
-                            className="inline-flex mt-8 items-center gap-3 rounded-full border border-gold/50 px-7 py-3.5 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
-                          >
-                            {property.ctaText}
-
-                            <span>
-                              →
-                            </span>
-
-                          </a>
-                        )}
+                      {property.ctaLabel && property.ctaLink && (
+                        <a
+                          href={property.ctaLink}
+                          className="inline-flex mt-8 items-center gap-3 rounded-full border border-gold/50 px-7 py-3.5 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
+                        >
+                          {property.ctaLabel}
+                          <span>→</span>
+                        </a>
+                      )}
 
                     </div>
 
@@ -491,7 +795,7 @@ export default async function AboutPage() {
         <div className="max-w-7xl mx-auto rounded-3xl border border-gold/15 bg-white/[0.02] p-10 md:p-20 text-center">
 
           <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-            Discover Udaipur with Manav Stays
+            {about.ctaTitle || "Discover Udaipur with Manav Stays"}
           </p>
 
           <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl leading-tight max-w-4xl mx-auto text-sandstone">
@@ -500,19 +804,35 @@ export default async function AboutPage() {
             It's the experience.
           </h2>
 
-          <p className="mt-7 max-w-2xl mx-auto text-lg leading-relaxed text-sandstone/60">
-            From comfortable stays to memorable dining experiences, Manav
-            Stays & Hospitality brings together multiple ways to experience
-            Udaipur.
-          </p>
+          {about.ctaDescription && (
+            <p className="mt-7 max-w-2xl mx-auto text-lg leading-relaxed text-sandstone/60">
+              {about.ctaDescription}
+            </p>
+          )}
 
-          <a
-            href="/"
-            className="inline-flex mt-9 items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
-          >
-            Explore Manav Stays
-            <span>→</span>
-          </a>
+          <div className="flex flex-wrap justify-center gap-4 mt-9">
+
+            {about.primaryCtaLabel && about.primaryCtaLink && (
+              <a
+                href={about.primaryCtaLink}
+                className="inline-flex items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
+              >
+                {about.primaryCtaLabel}
+                <span>→</span>
+              </a>
+            )}
+
+            {about.secondaryCtaLabel && about.secondaryCtaLink && (
+              <a
+                href={about.secondaryCtaLink}
+                className="inline-flex items-center gap-3 rounded-full border border-white/15 px-8 py-4 text-xs uppercase tracking-[0.18em] text-sandstone/70 transition-all duration-300 hover:border-gold/40 hover:text-gold"
+              >
+                {about.secondaryCtaLabel}
+                <span>→</span>
+              </a>
+            )}
+
+          </div>
 
         </div>
 
