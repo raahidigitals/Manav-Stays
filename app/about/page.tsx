@@ -51,8 +51,8 @@ const ABOUT_QUERY = `
 `;
 
 export default async function AboutPage() {
-  const about = await client.fetch(ABOUT_QUERY);
-
+  const about = await client.fetch(ABOUT_QUERY,{},{cache: "no-store"});
+   
   if (!about) {
     return (
       <main className="min-h-screen bg-obsidian text-sandstone">
