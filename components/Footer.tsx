@@ -137,6 +137,12 @@ export default async function Footer() {
               >
                 Cancellation & Refund
               </Link>
+               <Link
+                href="/careers"
+                className="hover:text-gold transition"
+              >
+                Careers At Manav Stays
+              </Link>
 
               <a
                 href={settings?.googleMapsUrl || "#"}
