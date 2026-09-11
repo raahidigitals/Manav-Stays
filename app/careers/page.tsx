@@ -33,22 +33,28 @@ const CAREER_QUERY = `
       description
     },
 
-    openPositions[] {
+    jobs[] {
       title,
+      department,
       location,
-      type,
+      employmentType,
+      experience,
+      shortDescription,
       description,
+      responsibilities,
       requirements,
-      applyLabel,
-      applyLink
+      applicationEmail,
+      applicationLink,
+      isOpen,
+      publishedAt
     },
 
     generalApplicationTitle,
     generalApplicationDescription,
     generalApplicationEmail,
 
-    finalCtaTitle,
-    finalCtaDescription,
+    ctaTitle,
+    ctaDescription,
     primaryCtaLabel,
     primaryCtaLink
   }
@@ -83,16 +89,28 @@ export default async function CareersPage() {
     );
   }
 
+  const openJobs =
+    career.jobs?.filter(
+      (job: { isOpen?: boolean }) => job.isOpen !== false
+    ) || [];
+
+  const whatsappNumber = "918890002728";
+
+  const generalWhatsappMessage = encodeURIComponent(
+    "Hi Manav Stays & Hospitality, I am interested in exploring career opportunities with your team. I would like to share my CV for consideration."
+  );
+
+  const generalWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${generalWhatsappMessage}`;
+
   return (
     <main className="min-h-screen bg-obsidian text-sandstone font-sans overflow-hidden">
 
-    {/* =========================================================
+      {/* =========================================================
           HERO
       ========================================================= */}
 
       <section className="relative min-h-[78vh] md:min-h-[82vh] flex items-end overflow-hidden">
 
-        {/* HERO IMAGE */}
         {career.heroImageUrl ? (
           <div className="absolute inset-0 overflow-hidden">
 
@@ -105,20 +123,16 @@ export default async function CareersPage() {
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
 
-            {/* Cinematic image treatment */}
             <div className="absolute inset-0 bg-black/45" />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20" />
 
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-black/10" />
 
           </div>
         ) : (
           <div className="absolute inset-0 bg-[#0b0b0b]" />
         )}
-
-
-        {/* HERO CONTENT */}
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24 pt-40">
 
@@ -144,6 +158,7 @@ export default async function CareersPage() {
 
       </section>
 
+
       {/* =========================================================
           LIFE AT MANAV STAYS
       ========================================================= */}
@@ -154,8 +169,6 @@ export default async function CareersPage() {
         <section className="px-6 md:px-10 py-20 md:py-32">
 
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-
-            {/* IMAGE */}
 
             {career.lifeImageUrl ? (
               <div className="overflow-hidden rounded-3xl border border-gold/10">
@@ -174,8 +187,6 @@ export default async function CareersPage() {
                 </span>
               </div>
             )}
-
-            {/* CONTENT */}
 
             <div>
 
@@ -212,8 +223,6 @@ export default async function CareersPage() {
 
           <div className="max-w-7xl mx-auto">
 
-            {/* HEADER */}
-
             <div className="max-w-3xl mb-14 md:mb-20">
 
               <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
@@ -232,8 +241,6 @@ export default async function CareersPage() {
 
             </div>
 
-
-            {/* BENEFITS */}
 
             {career.benefits?.length > 0 && (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
@@ -294,8 +301,11 @@ export default async function CareersPage() {
           OPEN POSITIONS
       ========================================================= */}
 
-      {career.openPositions?.length > 0 && (
-        <section className="px-6 md:px-10 py-20 md:py-32">
+      {openJobs.length > 0 && (
+        <section
+          id="open-position"
+          className="px-6 md:px-10 py-20 md:py-32 scroll-mt-24"
+        >
 
           <div className="max-w-7xl mx-auto">
 
@@ -319,98 +329,213 @@ export default async function CareersPage() {
 
             <div className="space-y-5">
 
-              {career.openPositions.map(
+              {openJobs.map(
                 (
-                  position: {
+                  job: {
                     title?: string;
+                    department?: string;
                     location?: string;
-                    type?: string;
+                    employmentType?: string;
+                    experience?: string;
+                    shortDescription?: string;
                     description?: string;
-                    requirements?: string;
-                    applyLabel?: string;
-                    applyLink?: string;
+                    responsibilities: string[];
+                    requirements: string[];
+                    applicationEmail?: string;
+                    applicationLink?: string;
+                    isOpen?: boolean;
                   },
                   index: number
-                ) => (
+                ) => {
 
-                  <article
-                    key={`${position.title}-${index}`}
-                    className="group rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-10 lg:p-12 transition-all duration-500 hover:border-gold/30"
-                  >
+                  const jobWhatsappMessage = encodeURIComponent(
+                    `Hi Manav Stays & Hospitality, I would like to apply for the position of ${
+                      job.title || "an open position"
+                    }. I would like to share my CV for consideration.`
+                  );
 
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                  const jobWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${jobWhatsappMessage}`;
 
-                      <div className="max-w-3xl">
+                  return (
+                    <article
+                      key={`${job.title}-${index}`}
+                      className="group rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-10 lg:p-12 transition-all duration-500 hover:border-gold/30"
+                    >
 
-                        <div className="flex flex-wrap items-center gap-3 mb-5">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
 
-                          <span className="text-xs uppercase tracking-[0.2em] text-gold/70">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
+                        <div className="max-w-4xl">
 
-                          {position.location && (
-                            <span className="text-xs uppercase tracking-[0.15em] text-sandstone/40">
-                              {position.location}
+                          <div className="flex flex-wrap items-center gap-3 mb-5">
+
+                            <span className="text-xs uppercase tracking-[0.2em] text-gold/70">
+                              {String(index + 1).padStart(2, "0")}
                             </span>
+
+                            {job.department && (
+                              <span className="text-xs uppercase tracking-[0.15em] text-gold/70">
+                                {job.department}
+                              </span>
+                            )}
+
+                            {job.location && (
+                              <span className="text-xs uppercase tracking-[0.15em] text-sandstone/40">
+                                {job.location}
+                              </span>
+                            )}
+
+                            {job.employmentType && (
+                              <span className="text-xs uppercase tracking-[0.15em] text-sandstone/40">
+                                {job.employmentType.replace("_", " ")}
+                              </span>
+                            )}
+
+                          </div>
+
+
+                          <h3 className="font-[var(--font-cormorant)] text-4xl md:text-5xl text-sandstone">
+                            {job.title || "Open Position"}
+                          </h3>
+
+
+                          {job.experience && (
+                            <p className="mt-3 text-sm uppercase tracking-[0.15em] text-gold/70">
+                              Experience: {job.experience}
+                            </p>
                           )}
 
-                          {position.type && (
-                            <span className="text-xs uppercase tracking-[0.15em] text-sandstone/40">
-                              {position.type}
-                            </span>
+
+                          {job.shortDescription && (
+                            <p className="mt-5 text-base md:text-lg leading-relaxed text-sandstone/70">
+                              {job.shortDescription}
+                            </p>
+                          )}
+
+
+                          {job.description && (
+                            <p className="mt-4 text-base leading-relaxed text-sandstone/55 whitespace-pre-line">
+                              {job.description}
+                            </p>
+                          )}
+
+
+                          {job.responsibilities?.length > 0 && (
+                            <div className="mt-7">
+
+                              <p className="text-xs uppercase tracking-[0.2em] text-gold/70 mb-3">
+                                Responsibilities
+                              </p>
+
+                              <ul className="space-y-2">
+
+                                {job.responsibilities.map(
+                                  (
+                                    item: string,
+                                    responsibilityIndex: number
+                                  ) => (
+                                    <li
+                                      key={responsibilityIndex}
+                                      className="text-sm md:text-base leading-relaxed text-sandstone/55 flex gap-3"
+                                    >
+                                      <span className="text-gold">—</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  )
+                                )}
+
+                              </ul>
+
+                            </div>
+                          )}
+
+
+                          {job.requirements?.length > 0 && (
+                            <div className="mt-7">
+
+                              <p className="text-xs uppercase tracking-[0.2em] text-gold/70 mb-3">
+                                What We're Looking For
+                              </p>
+
+                              <ul className="space-y-2">
+
+                                {job.requirements.map(
+                                  (
+                                    item: string,
+                                    requirementIndex: number
+                                  ) => (
+                                    <li
+                                      key={requirementIndex}
+                                      className="text-sm md:text-base leading-relaxed text-sandstone/55 flex gap-3"
+                                    >
+                                      <span className="text-gold">—</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  )
+                                )}
+
+                              </ul>
+
+                            </div>
                           )}
 
                         </div>
 
-                        <h3 className="font-[var(--font-cormorant)] text-4xl md:text-5xl text-sandstone">
-                          {position.title || "Open Position"}
-                        </h3>
 
-                        {position.description && (
-                          <p className="mt-5 text-base md:text-lg leading-relaxed text-sandstone/60">
-                            {position.description}
-                          </p>
-                        )}
+                        {/* APPLY ON WHATSAPP */}
 
-                        {position.requirements && (
-                          <div className="mt-7">
-
-                            <p className="text-xs uppercase tracking-[0.2em] text-gold/70 mb-3">
-                              What We're Looking For
-                            </p>
-
-                            <p className="text-sm md:text-base leading-relaxed text-sandstone/55 whitespace-pre-line">
-                              {position.requirements}
-                            </p>
-
-                          </div>
-                        )}
-
-                      </div>
-
-
-                      {position.applyLink && (
                         <div className="lg:pt-8 shrink-0">
 
                           <a
-                            href={position.applyLink}
+                            href={jobWhatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 rounded-full border border-gold/50 px-7 py-3.5 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
                           >
-                            {position.applyLabel || "Apply Now"}
+                            Apply Now
                             <span>→</span>
                           </a>
 
                         </div>
-                      )}
 
-                    </div>
+                      </div>
 
-                  </article>
-
-                )
+                    </article>
+                  );
+                }
               )}
 
             </div>
+
+          </div>
+
+        </section>
+      )}
+
+
+      {/* =========================================================
+          NO OPEN POSITIONS
+      ========================================================= */}
+
+      {openJobs.length === 0 && (
+        <section
+          id="open-position"
+          className="px-6 md:px-10 py-20 md:py-32 scroll-mt-24"
+        >
+
+          <div className="max-w-4xl mx-auto text-center">
+
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
+              Opportunities
+            </p>
+
+            <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl text-sandstone">
+              Open Positions
+            </h2>
+
+            <p className="mt-6 text-lg leading-relaxed text-sandstone/60">
+              We currently don't have any open positions, but we'd still love
+              to hear from talented people who are passionate about hospitality.
+            </p>
 
           </div>
 
@@ -444,15 +569,17 @@ export default async function CareersPage() {
               </p>
             )}
 
-            {career.generalApplicationEmail && (
-              <a
-                href={`mailto:${career.generalApplicationEmail}`}
-                className="inline-flex mt-9 items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
-              >
-                Send Your CV
-                <span>→</span>
-              </a>
-            )}
+            {/* SEND CV ON WHATSAPP */}
+
+            <a
+              href={generalWhatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex mt-9 items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
+            >
+              Send Your CV
+              <span>→</span>
+            </a>
 
           </div>
 
@@ -469,28 +596,28 @@ export default async function CareersPage() {
         <div className="max-w-7xl mx-auto rounded-3xl border border-gold/15 bg-white/[0.02] p-10 md:p-20 text-center">
 
           <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5">
-            {career.finalCtaTitle || "Build Your Journey With Us"}
+            {career.ctaTitle || "Build Your Journey With Us"}
           </p>
 
           <h2 className="font-[var(--font-cormorant)] text-4xl md:text-6xl lg:text-7xl leading-tight max-w-4xl mx-auto text-sandstone">
             Great hospitality starts with great people.
           </h2>
 
-          {career.finalCtaDescription && (
+          {career.ctaDescription && (
             <p className="mt-7 max-w-2xl mx-auto text-lg leading-relaxed text-sandstone/60">
-              {career.finalCtaDescription}
+              {career.ctaDescription}
             </p>
           )}
 
-          {career.primaryCtaLabel && career.primaryCtaLink && (
-            <a
-              href={career.primaryCtaLink}
-              className="inline-flex mt-9 items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
-            >
-              {career.primaryCtaLabel}
-              <span>→</span>
-            </a>
-          )}
+          {/* VIEW OPEN POSITIONS */}
+
+          <a
+            href={career.primaryCtaLink || "#open-position"}
+            className="inline-flex mt-9 items-center gap-3 rounded-full border border-gold/50 px-8 py-4 text-xs uppercase tracking-[0.18em] text-gold transition-all duration-300 hover:bg-gold hover:text-obsidian"
+          >
+            {career.primaryCtaLabel || "View Open Positions"}
+            <span>→</span>
+          </a>
 
         </div>
 
