@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { client } from "@/lib/sanity";
 import InstagramReels from "@/components/InstagramReels";
+import NearbyPlacesLalit from "@/components/NearbyPlacesLalit";
 
 const HOTEL_LALIT_QUERY = `
   *[_type == "property" && slug.current == "hotel-lalit-imperial"][0] {
@@ -828,6 +829,7 @@ export default async function HotelLalitPage() {
         </div>
 
       </section>
+      <NearbyPlacesLalit/>
 
 
       {/* =========================================================

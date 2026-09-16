@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { client } from "@/lib/sanity";
 import InstagramReels from "@/components/InstagramReels";
+import NearbyPlacesNaman from "@/components/NearbyPlacesNaman";
 
 const HOTEL_NAMAN_QUERY = `
   *[_type == "property" && slug.current == "hotel-naman"][0] {
@@ -459,6 +460,7 @@ export default async function HotelNamanPage() {
 
         </div>
       </section>
+      <NearbyPlacesNaman/>
       <InstagramReels
   reels={siteSettings?.namanInstagramReels || []}
   title="Hotel Naman on Instagram"
