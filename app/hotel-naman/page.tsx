@@ -3,6 +3,8 @@ import { client } from "@/lib/sanity";
 import InstagramReels from "@/components/InstagramReels";
 import NearbyPlacesNaman from "@/components/NearbyPlacesNaman";
 
+export const dynamic = "force-dynamic";
+
 const HOTEL_NAMAN_QUERY = `
   *[_type == "property" && slug.current == "hotel-naman"][0] {
     _id,
@@ -57,6 +59,11 @@ export default async function HotelNamanPage() {
   console.log("Naman amenities:", property?.amenities);
   console.log("Naman rooms:", property?.roomCategories);
   console.log("Naman gallery:", property?.gallery);
+  console.log("LIVE NAMAN HERO:", property?.heroImage);
+console.log(
+  "LIVE NAMAN GALLERY:",
+  property?.gallery?.map((item: { image?: string }) => item.image)
+);
 
   if (!property) {
     return (
