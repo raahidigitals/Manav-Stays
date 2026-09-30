@@ -64,7 +64,6 @@ console.log(
   "LIVE NAMAN GALLERY:",
   property?.gallery?.map((item: { image?: string }) => item.image)
 );
-
   if (!property) {
     return (
       <main className="min-h-screen bg-obsidian text-sandstone">
