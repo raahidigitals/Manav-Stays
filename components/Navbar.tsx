@@ -12,7 +12,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-gold/20">
 
       {/* MAIN NAVBAR */}
-      <div className="max-w-[1400px] mx-auto flex items-center px-5 sm:px-6 lg:px-8 xl:px-10 py-3.5">
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between px-5 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-3.5">
 
         {/* LOGO */}
         <Link
@@ -25,7 +25,7 @@ export default function Navbar() {
             alt="Manav Stays & Hospitality"
             width={180}
             height={60}
-            className="h-auto w-[120px] sm:w-[140px] lg:w-[150px]"
+            className="h-auto w-[105px] sm:w-[125px] lg:w-[150px]"
             priority
           />
         </Link>
@@ -38,7 +38,9 @@ export default function Navbar() {
             className="whitespace-nowrap hover:text-gold transition-colors"
           >
             Hotel Lalit
-            <span className="ml-1 text-gold/60">(Luxury Jacuzzi)</span>
+            <span className="ml-1 text-gold/60">
+              (Luxury Jacuzzi)
+            </span>
           </Link>
 
           <Link
@@ -46,7 +48,9 @@ export default function Navbar() {
             className="whitespace-nowrap hover:text-gold transition-colors"
           >
             Hotel Naman
-            <span className="ml-1 text-gold/60">(Affordable)</span>
+            <span className="ml-1 text-gold/60">
+              (Affordable)
+            </span>
           </Link>
 
           <Link
@@ -80,9 +84,9 @@ export default function Navbar() {
         </nav>
 
         {/* RIGHT SIDE */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-5">
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto">
 
-          {/* PHONE - DESKTOP */}
+          {/* PHONE - DESKTOP ONLY */}
           <a
             href="tel:+918890002728"
             className="hidden xl:inline-flex items-center gap-1.5 whitespace-nowrap text-[10px] uppercase tracking-[0.12em] text-gold hover:text-white transition-colors"
@@ -94,7 +98,7 @@ export default function Navbar() {
           {/* BOOK NOW */}
           <a
             href="https://wa.me/918890002728?text=Hi%2C%20I%20would%20like%20to%20book%20a%20room%20at%20Manav%20Stays"
-            className="px-3.5 py-2.5 sm:px-4.5 bg-gold text-obsidian text-[9px] sm:text-[10px] uppercase tracking-[0.12em] font-semibold rounded-full hover:bg-gold-light transition-all shadow-gold flex items-center gap-1.5 whitespace-nowrap"
+            className="px-4 py-2.5 sm:px-4.5 sm:py-2.5 bg-gold text-obsidian text-[9px] sm:text-[10px] uppercase tracking-[0.12em] font-semibold rounded-full hover:bg-gold-light transition-all shadow-gold flex items-center justify-center gap-1.5 whitespace-nowrap"
           >
             <Calendar size={13} />
             <span>Book Now</span>
@@ -105,7 +109,7 @@ export default function Navbar() {
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 text-gold transition hover:bg-gold hover:text-obsidian"
+            className="lg:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold text-obsidian transition hover:bg-gold-light"
           >
             {menuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
@@ -125,7 +129,9 @@ export default function Navbar() {
               className="border-b border-gold/10 py-4 text-xs uppercase tracking-[0.18em] text-sandstone/80 hover:text-gold transition-colors"
             >
               Hotel Lalit
-              <span className="ml-2 text-gold/60">(Luxury Jacuzzi)</span>
+              <span className="ml-2 text-gold/60">
+                (Luxury Jacuzzi)
+              </span>
             </Link>
 
             <Link
@@ -134,7 +140,9 @@ export default function Navbar() {
               className="border-b border-gold/10 py-4 text-xs uppercase tracking-[0.18em] text-sandstone/80 hover:text-gold transition-colors"
             >
               Hotel Naman
-              <span className="ml-2 text-gold/60">(Affordable)</span>
+              <span className="ml-2 text-gold/60">
+                (Affordable)
+              </span>
             </Link>
 
             <Link

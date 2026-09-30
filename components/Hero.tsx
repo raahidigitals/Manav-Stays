@@ -99,7 +99,7 @@ export default function Hero({
           >
             <div className="flex justify-between items-start mb-2">
               <span className="text-[10px] uppercase tracking-widest text-gold font-semibold">
-                Ultra Luxury
+                A Luxury Jacuzzi Boutique Stay
               </span>
 
               <span className="text-xs text-sandstone/50">
@@ -113,7 +113,7 @@ export default function Hero({
 
             <p className="text-xs text-sandstone/60 font-light mt-1 flex items-center gap-1">
               <MapPin size={12} className="text-gold" />
-              Bhuwana Bypass • Luxury Stay
+              Bhuwana Bypass • 
             </p>
           </a>
 
@@ -124,7 +124,7 @@ export default function Hero({
           >
             <div className="flex justify-between items-start mb-2">
               <span className="text-[10px] uppercase tracking-widest text-gold font-semibold">
-                Premium Affordable
+                Where Comfort Meets Affordability
               </span>
 
               <span className="text-xs text-sandstone/50">

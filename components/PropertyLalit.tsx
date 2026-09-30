@@ -1,4 +1,5 @@
 
+import { PiBathtubLight } from "react-icons/pi";
 import {client, urlFor} from "../lib/sanity";
 import GalleryRotator from "./GalleryRotator";
 import { MapPin, Phone, GlassWater, UtensilsCrossed, Sparkles } from "lucide-react";
@@ -25,7 +26,7 @@ const property = await client.fetch(
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs uppercase tracking-widest">
               <Sparkles size={12} />
-              <span>Ultra Luxury Segment • 12 Suites</span>
+              <span>A Luxury Jacuzzi Boutique Stay • 12 Suites</span>
             </div>
 
             <h2 className="font-serif text-4xl sm:text-6xl text-sandstone font-light leading-tight">
@@ -39,10 +40,10 @@ const property = await client.fetch(
 
             <div className="grid grid-cols-2 gap-4 py-4 border-y border-gold/15">
               <div className="flex items-start gap-3">
-                <GlassWater className="text-gold mt-1" size={20} />
+                <PiBathtubLight className="text-gold mt-1" size={20} />
                 <div>
-                  <h4 className="font-serif text-lg text-sandstone">Dockyard Bar</h4>
-                  <p className="text-xs text-sandstone/60">Craft cocktails & high-end ambiance</p>
+                  <h4 className="font-serif text-lg text-sandstone">Jacuzzi Suites</h4>
+                  <p className="text-xs text-sandstone/60">Luxurious soaking experiences</p>
                 </div>
               </div>
 
