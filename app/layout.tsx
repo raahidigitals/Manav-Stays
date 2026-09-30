@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Script from "next/script";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 
 const cormorant = Cormorant_Garamond({
@@ -43,7 +44,7 @@ export default function RootLayout({
   <Navbar />
   {children}
   <Footer />
-
+  <WhatsAppButton />
   <Script
     id="google-tag-manager"
     strategy="afterInteractive"
